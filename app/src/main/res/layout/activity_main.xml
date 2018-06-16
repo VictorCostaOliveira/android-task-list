@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_height="match_parent"
+    tools:context="com.example.victor.projetodiogo.Activities.MainActivity">
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:hint="@string/user_email"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailEditText" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:inputType="textPassword"
+        android:hint="@string/user_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="@string/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="login"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
+    <Button
+        android:text="@string/button_cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToCadastro"/>
+
+
+</LinearLayout>

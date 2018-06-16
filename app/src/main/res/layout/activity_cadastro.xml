@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="12dp"
+    android:paddingLeft="12dp"
+    android:orientation="vertical"
+    tools:context="com.example.victor.projetodiogo.Activities.CadastroActivity">
+
+    <EditText
+        android:hint="@string/cadastro_user_input_nome"
+        android:inputType="text"
+        android:id="@+id/inputNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="@string/cadastro_user_input_email"
+        android:inputType="text"
+        android:id="@+id/inputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="@string/cadastro_user_input_password"
+        android:inputType="textPassword"
+        android:id="@+id/inputPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_user_button"
+        android:id="@+id/saveUserButton"/>
+
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ProjetoDiogo</string>
+    <string name="title_activity_cadastro">ActivityCadastro</string>
+    <string name="user_email">Email</string>
+    <string name="user_senha">Senha</string>
+    <string name="button_login">Login</string>
+    <string name="button_cadastro">Cadastro</string>
+    <string name="cadastro_user_input_nome">Nome</string>
+    <string name="cadastro_user_input_email">Email</string>
+    <string name="cadastro_user_input_password">Senha</string>
+    <string name="save_user_button">Salvar usuario</string>
+</resources>
