@@ -21,44 +21,44 @@ import java.util.List;
  */
 
 public class TaskAdapter extends ArrayAdapter<Task> {
-    ArrayList<Task> tarefas;
+    ArrayList<Task> tasks;
     public TaskAdapter(@NonNull Context context, int resource, @NonNull List<Task> objects) {
         super(context, resource);
-        tarefas = new ArrayList<>(objects.size());
-        tarefas.addAll(objects);
+        tasks = new ArrayList<>(objects.size());
+        tasks.addAll(objects);
     }
 
     @Nullable
     @Override
     public Task getItem(int position) {
-        return tarefas.get(position);
+        return tasks.get(position);
     }
 
     @Override
     public int getCount() {
-        return tarefas.size();
+        return tasks.size();
     }
 
     @Override
     public void add(@Nullable Task object) {
-        tarefas.add(object);
+        tasks.add(object);
     }
 
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        LayoutInflater inflater = (LayoutInflater) this.getContext()
-//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View itemTarefa = inflater.inflate(R.layout.item_tarefa, parent,false);
-//
-//        Task tarefa = getItem(position);
-//        TextView titulo = (TextView) itemTarefa.findViewById(R.id.titulo);
-//        titulo.setText(tarefa.getDescription());
-//        CheckBox status = (CheckBox) itemTarefa.findViewById(R.id.status);
-//        status.setChecked(tarefa.getDone());
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) this.getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View itemTarefa = inflater.inflate(R.layout.task_item, parent,false);
 
-//        return itemTarefa;
-//    }
+        Task task = getItem(position);
+        TextView titulo = (TextView) itemTarefa.findViewById(R.id.task_name_view);
+        titulo.setText(task.getDescription());
+        CheckBox status = (CheckBox) itemTarefa.findViewById(R.id.status);
+        status.setChecked(task.getDone());
+
+        return itemTarefa;
+    }
 
 
 }

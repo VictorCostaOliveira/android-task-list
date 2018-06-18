@@ -42,9 +42,10 @@ public class CadastroActivity extends AppCompatActivity {
                                 public void run() {
                                     if (success) {
                                         Intent goToTaskList = new Intent(CadastroActivity.this, TaskListActivity.class);
+                                        goToTaskList.putExtra("email", newUser.getEmail());
+                                        goToTaskList.putExtra("password", newUser.getEncryptedPassword());
                                         startActivity(goToTaskList);
                                         finish();
-                                        goToTaskList.putExtra("message", "Bem vindo " + newUser.getUsername());
 //                                        Toast.makeText(CadastroActivity.this, "Usuario cadastrado", Toast.LENGTH_LONG).show();
                                     }else {
                                         Toast.makeText(CadastroActivity.this, "Algo deu errado", Toast.LENGTH_SHORT).show();

@@ -10,20 +10,20 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 /**
  * Created by victor on 16/06/18.
  */
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "userId", onDelete = CASCADE))
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "uid", childColumns = "userId", onDelete = CASCADE))
 public class TaskList {
 
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "taskListName")
     private String taskListName;
 
     @ColumnInfo(name = "userId")
     private int userId;
 
-    public TaskList(String name, int userId) {
-        this.taskListName = name;
+    public TaskList(String taskListName, int userId) {
+        this.taskListName = taskListName;
         this.userId = userId;
     }
 

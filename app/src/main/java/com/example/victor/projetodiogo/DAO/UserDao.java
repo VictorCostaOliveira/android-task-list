@@ -3,6 +3,7 @@ package com.example.victor.projetodiogo.DAO;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.example.victor.projetodiogo.Model.User;
@@ -18,8 +19,8 @@ public interface UserDao {
     @Query("SELECT *  FROM user WHERE email LIKE :email AND encrypted_password LIKE :password LIMIT 1")
     User findAuthenticatedUser(String email, String password);
 
-    @Insert
-    void insertAll(User... user);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Long insertUser(User user);
 
     @Delete
     void delete(User user);

@@ -10,7 +10,6 @@ import com.example.victor.projetodiogo.DAO.UserDao;
 import com.example.victor.projetodiogo.Model.Task;
 import com.example.victor.projetodiogo.Model.TaskList;
 import com.example.victor.projetodiogo.Model.User;
-
 import java.util.List;
 
 /**
@@ -19,6 +18,24 @@ import java.util.List;
 
 public class DbOperations {
     private static final String TAG = DbOperations.class.getName();
+
+    public interface DBOperationsCallBack {
+        void savedUser(Boolean success);
+
+        void userExists(Boolean exists, User user);
+    }
+
+    public interface DBOperationsTaskCallBack {
+        void taskSaved(Boolean success);
+
+        void getAllTasks(List<Task> listaTarefas);
+    }
+
+    public interface DBOperationTaskListCallBack {
+        void taskListSaved(Boolean success);
+
+        void getAllTaskLists(List<TaskList> taskLists);
+    }
 
     private Context context;
     private DBOperationsCallBack callback;
@@ -35,8 +52,13 @@ public class DbOperations {
     }
 
     public void saveTaskList(TaskList taskList, DBOperationTaskListCallBack callback){
-        this.callback = callback;
-        new saveUserTaskLlist().execute(taskList);
+        this.taskListCallback = callback;
+        new saveUserTaskList().execute(taskList);
+    }
+
+    public void getUserTaskLists(Integer userId, DBOperationTaskListCallBack callBack) {
+     this.taskListCallback = callBack;
+     new getUserTaskLists().execute(userId);
     }
 
     public void saveTask(Task task, DBOperationsTaskCallBack callback){
@@ -46,7 +68,7 @@ public class DbOperations {
 
     public void getAllTasks(DBOperationsTaskCallBack callBack){
         this.taskCallback = callBack;
-        new getAllTasksTask().execute();
+        new getAllTasks().execute();
     }
 
     public void queryAuthenticatedUser(String user, String pass, DBOperationsCallBack callback){
@@ -55,11 +77,12 @@ public class DbOperations {
     }
 
     private class saveUser extends AsyncTask<User, Void, Void> {
+
         @Override
-        protected Void doInBackground(User... users) {
+        protected Void doInBackground(User... user) {
             try {
                 UserDao userDao = AppDatabase.getInstance(context).userDao();
-                userDao.insertAll(users);
+                long myUser =  userDao.insertUser(user[0]);
                 if (callback != null) {
                     callback.savedUser(true);
                 }
@@ -73,18 +96,40 @@ public class DbOperations {
         }
     }
 
-    private class saveUserTaskLlist extends AsyncTask<TaskList, void, void> {
+    private class saveUserTaskList extends AsyncTask<TaskList, Void, Void> {
         @Override
-        protected void doInBackground(TaskList... taskLists) {
+        protected Void doInBackground(TaskList... taskLists) {
             try {
                 TaskListDao taskListDao = AppDatabase.getInstance(context).taskListDao();
                 taskListDao.insertAll(taskLists);
-                if (callback != null) {
-                    callback.
+                if (taskListCallback != null) {
+                    taskListCallback.taskListSaved(true);
                 }
             } catch (Exception e) {
-
+                Log.e("saveUserTaskList", e.getMessage());
+                if (taskListCallback!= null) {
+                    taskListCallback.taskListSaved(false);
+                }
             }
+            return null;
+        }
+    }
+
+    private class getUserTaskLists extends AsyncTask<Integer, Void, Void> {
+        @Override
+        protected Void doInBackground(Integer... params) {
+            try {
+                List<TaskList> taskListDao = AppDatabase.getInstance(context).taskListDao().userTaskLists(params[0]);
+                if (taskListCallback!= null) {
+                    taskListCallback.getAllTaskLists(taskListDao);
+                }
+            } catch (Exception e) {
+                Log.e("getUserTaskLists", e.getMessage());
+                if (taskListCallback != null) {
+                    taskListCallback.getAllTaskLists(null);
+                }
+            }
+            return null;
         }
     }
 
@@ -126,11 +171,11 @@ public class DbOperations {
         }
     }
 
-    private class getAllTasksTask extends AsyncTask<Void, Void, Void> {
+    private class getAllTasks extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                List<Task> lista = AppDatabase.getInstance(context).taskDao().getAll();
+                List<Task> lista = AppDatabase.getInstance(context).taskDao().getAll(1);
                 if(taskCallback != null) {
                     taskCallback.getAllTasks(lista);
                 }

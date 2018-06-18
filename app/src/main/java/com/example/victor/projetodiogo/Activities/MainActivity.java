@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.victor.projetodiogo.Model.User;
 import com.example.victor.projetodiogo.R;
 import com.example.victor.projetodiogo.utils.DbOperations;
+import com.facebook.stetho.Stetho;
 
 public class MainActivity extends AppCompatActivity {
     EditText emailEditText;
@@ -19,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        Stetho.initializeWithDefaults(this);
     }
 
     public void goToCadastro(View view) {
@@ -46,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         if (exists) {
                             Intent goToTaskList = new Intent(MainActivity.this, TaskListActivity.class);
+                            goToTaskList.putExtra("userId", user.getEmail());
+                            goToTaskList.putExtra("password", user.getEncryptedPassword());
                             startActivity(goToTaskList);
                             finish();
-//                            goToTaskList.putExtra("message", "Usuario logado");
                         }else {
                             Toast.makeText(MainActivity.this, "Email ou senha não cadastrado", Toast.LENGTH_SHORT).show();
                         }
