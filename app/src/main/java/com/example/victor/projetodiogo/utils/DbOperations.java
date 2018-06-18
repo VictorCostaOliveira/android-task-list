@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.victor.projetodiogo.DAO.TaskDao;
+import com.example.victor.projetodiogo.DAO.TaskListDao;
 import com.example.victor.projetodiogo.DAO.UserDao;
 import com.example.victor.projetodiogo.Model.Task;
+import com.example.victor.projetodiogo.Model.TaskList;
 import com.example.victor.projetodiogo.Model.User;
 
 import java.util.List;
@@ -16,26 +18,12 @@ import java.util.List;
  */
 
 public class DbOperations {
-
-    public interface DBOperationsCallBack {
-        void savedUser(Boolean success);
-
-        void userExists(Boolean exists, User user);
-    }
-
-    public interface DBOperationsTaskCallBack {
-        void taskSaved(Boolean success);
-
-        void getAllTasks(List<Task> listaTarefas);
-    }
-
-
-
     private static final String TAG = DbOperations.class.getName();
 
     private Context context;
     private DBOperationsCallBack callback;
     private DBOperationsTaskCallBack taskCallback;
+    private DBOperationTaskListCallBack taskListCallback;
 
     public DbOperations(Context context) {
         this.context = context;
@@ -46,9 +34,9 @@ public class DbOperations {
         new saveUser().execute(user);
     }
 
-    public void saveTaskList(User user, DBOperationsCallBack callback){
+    public void saveTaskList(TaskList taskList, DBOperationTaskListCallBack callback){
         this.callback = callback;
-//        new saveUserTask().execute(user);
+        new saveUserTaskLlist().execute(taskList);
     }
 
     public void saveTask(Task task, DBOperationsTaskCallBack callback){
@@ -82,6 +70,21 @@ public class DbOperations {
                 }
             }
             return null;
+        }
+    }
+
+    private class saveUserTaskLlist extends AsyncTask<TaskList, void, void> {
+        @Override
+        protected void doInBackground(TaskList... taskLists) {
+            try {
+                TaskListDao taskListDao = AppDatabase.getInstance(context).taskListDao();
+                taskListDao.insertAll(taskLists);
+                if (callback != null) {
+                    callback.
+                }
+            } catch (Exception e) {
+
+            }
         }
     }
 

@@ -5,8 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.victor.projetodiogo.Activities.TaskListActivity">
-    <TextView
-        android:id="@+id/teste"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/task_list">
+        </ListView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/newTaskListButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_margin="30dp"/>
+
+    </RelativeLayout>
 </LinearLayout>
